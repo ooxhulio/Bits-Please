@@ -11,3 +11,5 @@ The project consists of a symfony based web application which is going to help I
 
 •	The framework that we will use for this project is symfony 3.4.
 
+• All the departments will have their own online management dashboard.
+

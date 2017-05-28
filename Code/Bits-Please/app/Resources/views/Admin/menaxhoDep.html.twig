@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+{% endblock %}
+{% block info %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">Add Department</h4>
+                            <p class="category">Complete Department profile</p>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.name) }}</label>
+                                        {{ form_widget(form.name) }}
+                                        {{ form_errors(form.name) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group label-floating col-md-12">
+                                    {{ form_widget(form.save) }}
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Departments</h4>
+                            <p class="category">Manage Departments</p>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                <th>Name</th>
+                                </thead>
+                                <tbody>
+                                {% for x in dep %}
+                                    <tr>
+                                        <td>{{ x.name }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $("#depts").addClass("active");
+        });
+    </script>
+{% endblock %}

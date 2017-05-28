@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/date/jquery.datetimepicker.css') }}"/>
+
+{% endblock %}
+{% block info %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Edit Loan</h4>
+                            <p class="category">Complete Loan Requirements</p>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.clientid) }}</label>
+                                        {{ form_widget(form.clientid) }}
+                                        {{ form_errors(form.clientid) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.amount) }}</label>
+                                        {{ form_widget(form.amount) }}
+                                        {{ form_errors(form.amount) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.interest) }}</label>
+                                        {{ form_widget(form.interest) }}
+                                        {{ form_errors(form.interest) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.maturity) }}</label>
+                                        {{ form_widget(form.maturity) }}
+                                        {{ form_errors(form.maturity) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.status) }}</label>
+                                        {{ form_widget(form.status) }}
+                                        {{ form_errors(form.status) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.dataFillimit) }}</label>
+                                        {{ form_widget(form.dataFillimit) }}
+                                        {{ form_errors(form.dataFillimit) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group label-floating col-md-12">
+                                {{ form_widget(form.save) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('assets/date/build/jquery.datetimepicker.full.js') }}"></script>
+    <script src="{{ asset('assets/date/jquery.js') }}"></script>
+    <script src="{{ asset('assets/date/jquery.datetimepicker.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $("#loan").addClass("active");
+        });
+        $.datetimepicker.setLocale('en');
+
+        $('.datetimepicker').datetimepicker({
+            dayOfWeekStart : 1,
+            lang:'en',
+            startDate:	'2017/01/05'
+        });
+    </script>
+{% endblock %}

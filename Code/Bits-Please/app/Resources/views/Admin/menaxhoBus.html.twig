@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <style>
+        .blogo{
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+    {% endblock %}
+{% block info %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">Add Business</h4>
+                            <p class="category">Complete Business profile</p>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.name) }}</label>
+                                        {{ form_widget(form.name) }}
+                                        {{ form_errors(form.name) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form.nipt) }}</label>
+                                        {{ form_widget(form.nipt) }}
+                                        {{ form_errors(form.nipt) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <label class="control-label">{{ form_label(form.logo) }}</label>
+                                        {{ form_widget(form.logo) }}
+                                        {{ form_errors(form.logo) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form.email) }}</label>
+                                        {{ form_widget(form.email) }}
+                                        {{ form_errors(form.email) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form.description) }}</label>
+                                        {{ form_widget(form.description) }}
+                                        {{ form_errors(form.description) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group label-floating col-md-12">
+                                    {{ form_widget(form.save) }}
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Businesses</h4>
+                            <p class="category">Manage Businesses</p>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                <th>Logo</th>
+                                <th>Name</th>
+                                <th>Nipt</th>
+                                <th>Email</th>
+                                <th>Description</th>
+                                </thead>
+                                <tbody>
+                                {% for x in bus %}
+                                    <tr>
+                                        <td> <img src="{{ asset("Uploads/Business/"~x.logo) }}" class="blogo"/></td>
+                                        <td>{{ x.name }}</td>
+                                        <td>{{ x.nipt }}</td>
+                                        <td>{{ x.email }}</td>
+                                        <td>{{ x.description }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $("#buss").addClass("active");
+        });
+    </script>
+{% endblock %}

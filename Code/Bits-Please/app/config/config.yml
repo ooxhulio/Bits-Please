@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    Bus_Images: '%kernel.root_dir%/../web/Uploads/Business'
 
 framework:
     #esi: ~
@@ -33,6 +34,7 @@ framework:
     assets: ~
     php_errors:
         log: true
+    translator: ~
 
 # Twig Configuration
 twig:
@@ -68,3 +70,10 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\Users
+    from_email:
+        address: "null"
+        sender_name: "null"

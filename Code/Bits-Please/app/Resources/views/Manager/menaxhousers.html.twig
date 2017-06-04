@@ -1,0 +1,188 @@
+{% extends 'Manager/base.html.twig' %}
+{% block info %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">Add Client</h4>
+                            <p class="category">Complete Client profile</p>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start(form2) }}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.client.name) }}</label>
+                                        {{ form_widget(form2.client.name) }}
+                                        {{ form_errors(form2.client.name) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.client.surname) }}</label>
+                                        {{ form_widget(form2.client.surname) }}
+                                        {{ form_errors(form2.client.surname) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.client.salary) }}</label>
+                                        {{ form_widget(form2.client.salary) }}
+                                        {{ form_errors(form2.client.salary) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.client.bank) }}</label>
+                                        {{ form_widget(form2.client.bank) }}
+                                        {{ form_errors(form2.client.bank) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.client.cardid) }}</label>
+                                        {{ form_widget(form2.client.cardid) }}
+                                        {{ form_errors(form2.client.cardid) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.user.email) }}</label>
+                                        {{ form_widget(form2.user.email) }}
+                                        {{ form_errors(form2.user.email) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.user.username) }}</label>
+                                        {{ form_widget(form2.user.username) }}
+                                        {{ form_errors(form2.user.username) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.user.type) }}</label>
+                                        {{ form_widget(form2.user.type) }}
+                                        {{ form_errors(form2.user.type) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.user.plainPassword.first) }}</label>
+                                        {{ form_widget(form2.user.plainPassword.first) }}
+                                        {{ form_errors(form2.user.plainPassword.first) }}
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">  {{ form_label(form2.user.plainPassword.second) }}</label>
+                                        {{ form_widget(form2.user.plainPassword.second) }}
+                                        {{ form_errors(form2.user.plainPassword.second) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group label-floating col-md-12">
+                                    {{ form_widget(form2.save) }}
+                                </div>
+                            </div>
+                            {{ form_end(form2) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+             <div class="row">
+                <div class="col-md-7">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Clients</h4>
+                            <p class="category">Manage Clients</p>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                <th>Name</th>
+                                <th>Card ID</th>
+                                <th>Edit</th>
+                                </thead>
+                                <tbody>
+                                {% for x in clients %}
+                                    <tr>
+                                        <td> {{ x.name }}</td>
+                                        <td>{{ x.cardid }}</td>
+                                        <td><button  id="{{ x.id }}" class="btn btn-delete but3" href=""><i class="material-icons">open_in_new</i></button>
+                                            <a class="btn btn-delete" href="{{ path('editclient', {'id':  x.id }) }}"><i class="material-icons">create</i></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    {% for x in clients %}
+        <div id="c{{ x.id }}" style="display:none">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label">Card Id:</label> <div type='text' class='form-control' name="cardid" value=''>{{ x.cardid }}</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Name:</label> <div type='text' class='form-control' name="name" value=''>{{ x.name }}</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Surname:</label> <div type='text' class='form-control' name="surname" value='surname'>{{ x.surname }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="control-label">Bank Account Nr:</label> <div type='text' class='form-control' name="bank" value=''>{{ x.bank }}</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Salary:</label> <div type='text' class='form-control' name="salary" value=''>{{ x.salary }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        $(document).ready(function(){
+            $("#users").addClass("active");
+        });
+        $(document).ready(function(){
+            $(".but1").on('click',function () {
+                bootbox.alert({
+                    message: $('#cont'+this.id).html(),
+                    size: 'medium'
+                });
+            })
+            $(".but2").on('click',function () {
+                bootbox.alert({
+                    message: $('#e'+this.id).html(),
+                    size: 'large'
+                });
+            })
+            $(".but3").on('click',function () {
+                bootbox.alert({
+                    message: $('#c'+this.id).html(),
+                    size: 'large'
+                });
+            })
+        });
+    </script>
+{% endblock %}

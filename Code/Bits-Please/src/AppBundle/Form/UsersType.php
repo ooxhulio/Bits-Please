@@ -35,9 +35,7 @@ class UsersType extends AbstractType
                 'empty_data'  => '',
             ))
             ->add('type',ChoiceType::class,array('label'=>'Type','attr'=>array('class'=> 'form-control'),'choices'=>array(
-                'Employee'=>'0',
                 'Client'=>'1',
-                'Admin'=>'2',
             )));
     }
 

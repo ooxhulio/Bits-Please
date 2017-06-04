@@ -1,0 +1,76 @@
+{% extends 'Manager/base.html.twig' %}
+{% block css %}
+
+{% endblock %}
+{% block info %}
+    <div class="content">
+         <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">Edit Client</h4>
+                            <p class="category">Complete Client profile</p>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.name) }}</label>
+                                        {{ form_widget(form.name) }}
+                                        {{ form_errors(form.name) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form.surname) }}</label>
+                                        {{ form_widget(form.surname) }}
+                                        {{ form_errors(form.surname) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form.salary) }}</label>
+                                        {{ form_widget(form.salary) }}
+                                        {{ form_errors(form.salary) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form.bank) }}</label>
+                                        {{ form_widget(form.bank) }}
+                                        {{ form_errors(form.bank) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form.cardid) }}</label>
+                                        {{ form_widget(form.cardid) }}
+                                        {{ form_errors(form.cardid) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group label-floating col-md-12">
+                                    {{ form_widget(form.save) }}
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $("#users").addClass("active");
+        });
+    </script>
+{% endblock %}

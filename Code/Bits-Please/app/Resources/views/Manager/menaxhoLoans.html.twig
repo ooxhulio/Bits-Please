@@ -1,4 +1,4 @@
-{% extends 'Admin/base.html.twig' %}
+{% extends 'Manager/base.html.twig' %}
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/date/jquery.datetimepicker.css') }}"/>
 
@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group label-floating">
+                                    <div class="form-group label-floating ">
                                         <label class="control-label">{{ form_label(form.amount) }}</label>
                                         {{ form_widget(form.amount) }}
                                         {{ form_errors(form.amount) }}
@@ -33,14 +33,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group label-floating">
+                                    <div class="form-group label-floating ">
                                         <label class="control-label">{{ form_label(form.interest) }}</label>
                                         {{ form_widget(form.interest) }}
                                         {{ form_errors(form.interest) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group label-floating">
+                                    <div class="form-group label-floating ">
                                         <label class="control-label">{{ form_label(form.maturity) }}</label>
                                         {{ form_widget(form.maturity) }}
                                         {{ form_errors(form.maturity) }}
@@ -60,6 +60,19 @@
                                         <label class="control-label">{{ form_label(form.dataFillimit) }}</label>
                                         {{ form_widget(form.dataFillimit) }}
                                         {{ form_errors(form.dataFillimit) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Monthly Payment</label>
+                                        <input class="form-control monthly" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <button class="calculate btn btn-default">Calculate Monthly Payment </button>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +99,6 @@
                                 <th>Maturity</th>
                                 <th>Data Fillimit</th>
                                 <th>Status</th>
-                                <th>Edit</th>
                                 </thead>
                                 <tbody>
                                 {% for x in loans %}
@@ -107,7 +119,6 @@
                                         {% elseif x.status == 0 %}
                                         <td>Mbaruar</td>
                                         {% endif %}
-                                        <td><a id="{{ x.id }}" class="btn btn-delete but3" href="{{ path('editloan', {'id': x.id }) }}"><i class="material-icons">create</i></a></td>
                                     </tr>
                                 {% endif %}
                                 {% endfor %}
@@ -130,28 +141,28 @@
                         <table class="table">
                             <thead class="text-primary">
                             <th>Client ID</th>
-                            <th>Client Name</th>
                             <th>Amount</th>
                             <th>Interest</th>
                             <th>Monthly Payment</th>
+                            <th>Month Payed</th>
                             <th>Maturity</th>
                             <th>Data Fillimit</th>
                             <th>Deadline</th>
                             <th>Status</th>
-                            <th>Edit</th>
+                            <th>Manage</th>
                             </thead>
                             <tbody>
                             {% for x in loans %}
                                 {% if x.status != 0 %}
                                     <tr>
-                                        <td><a href="{{ path('editclients', {'id': x.clientid.id }) }}">{{ x.clientid.cardid }}</a></td>
-                                        <td><a href="{{ path('editclients', {'id': x.clientid.id }) }}">{{ x.clientid.name }}</a></td>
+                                        <td>{{ x.clientid.cardid }}</td>
                                         <td>{{ x.amount }}</td>
                                         <td>{{ x.interest }}</td>
-                                        <td>{{ ((x.amount)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>
+                                        <td>{{ ((x.amount*1.2)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>
+                                        <td>{{ x.payed }}</td>
                                         <td>{{ x.maturity }} Months</td>
                                         <td>{{ x.dataFillimit|date('Y-m-d')  }}</td>
-                                        <td>{{ x.dataFillimit|date_modify("+"~ x.maturity ~" day")|date("m/d/Y") }}</td>
+                                        <td>{{ x.dataFillimit|date_modify("+"~ x.maturity ~" month")|date("Y-m-d") }}</td>
                                         {% if x.status == 1 %}
                                             <td>Aktiv</td>
                                         {% elseif x.status == 2 %}
@@ -161,7 +172,8 @@
                                         {% elseif x.status == 0 %}
                                             <td>Mbaruar</td>
                                         {% endif %}
-                                        <td><a id="{{ x.id }}" class="btn btn-delete but3" href="{{ path('editloan', {'id': x.id }) }}"><i class="material-icons">create</i></a></td>
+                                        <td><a id="{{ x.id }}" class="btn btn-delete but3" href="{{ path('eloan', {'id': x.id }) }}"><i class="material-icons">create</i></a>
+                                        <a id="{{ x.id }}" target="_blank" class="btn btn-default but3" href="{{ path('invoice', {'id': x.id }) }}"><i class="material-icons">monetization_on</i></a></td>
                                     </tr>
                                 {% endif %}
                             {% endfor %}
@@ -187,6 +199,14 @@
             dayOfWeekStart : 1,
             lang:'en',
             startDate:	'2017/01/05'
+        });
+        $(document).ready(function(){
+            $(".calculate").click(function(){
+                var amount = $('.amount').val();
+                var int = $('.int').val()/1200;
+                var maturity = $('.maturity').val();
+                $(".monthly").val((amount*int*Math.pow((1+int),maturity))/(Math.pow((1+int),maturity)-1));
+            });
         });
     </script>
 {% endblock %}

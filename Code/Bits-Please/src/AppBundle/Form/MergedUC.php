@@ -27,7 +27,7 @@ class MergedUC extends AbstractType
             ->add('client', ClientType::class, array(
                 'data_class' => Client::class
             ))
-            ->add('save',SubmitType::class,array('label'=>'Add Client','attr'=>array('class'=> 'btn btn-primary pull-right')))
+            ->add('save',SubmitType::class,array('label'=>'Sign Up Client','attr'=>array('class'=> 'btn btn-primary pull-right','id'=>'login-button')))
         ;
     }
 }

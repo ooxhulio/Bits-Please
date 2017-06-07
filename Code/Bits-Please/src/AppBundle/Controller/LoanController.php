@@ -176,10 +176,13 @@ class LoanController extends Controller
                 }
             }
         }
-
+        $aLoans = $this->getDoctrine()
+            ->getRepository('AppBundle:LoanApproval')
+            ->findAll();
         return $this->render('Manager/menaxhoLoans.html.twig',array(
             'form'=>$form->createView(),
             'loans'=>$loans,
+            'aloans'=>$aLoans,
         ));
     }
     /**
@@ -347,5 +350,39 @@ class LoanController extends Controller
             'x'=>$loans,
         ));
     }
-
+    /**
+     * @Route("/aLoan/{id}", name="aLoan")
+     */
+    public function aLoan($id,Request $request)
+    {
+        $loan = $this->getDoctrine()
+        ->getRepository('AppBundle:LoanApproval')
+        ->find($id);
+        $nl=new Loan();
+        $nl->setStatus(1);
+        $nl->setPayed(0);
+        $nl->setDataFillimit($loan->getDataFillimit());
+        $nl->setMaturity($loan->getMaturity());
+        $nl->setInterest($loan->getInterest());
+        $nl->setClientid($loan->getClientid());
+        $nl->setAmount($loan->getAmount());
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($nl);
+        $em->remove($loan);
+        $em->flush();
+        return $this->redirectToRoute('mloan');
+    }
+    /**
+     * @Route("/dLoan/{id}", name="dLoan")
+     */
+    public function dLoan($id,Request $request)
+    {
+        $loan = $this->getDoctrine()
+            ->getRepository('AppBundle:LoanApproval')
+            ->find($id);
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($loan);
+        $em->flush();
+        return $this->redirectToRoute('mloan');
+    }
 }

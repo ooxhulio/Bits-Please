@@ -144,7 +144,7 @@ class UserController extends Controller
             $email=$form1['user']['email']->getData();
             $username=$form1['user']['username']->getData();
             $password=$form1['user']['plainPassword']->getData();
-            $type=$form1['user']['type']->getData();
+            $type=1;
             $bank=$form1['client']['bank']->getData();
             $cardid=$form1['client']['cardid']->getData();
             $salary=$form1['client']['salary']->getData();
@@ -347,65 +347,71 @@ class UserController extends Controller
      */
     public function admin(Request $request)
     {
-        $loans = $this->getDoctrine()
-            ->getRepository('AppBundle:Loan')
-            ->findAll();
-        $clients = $this->getDoctrine()
-            ->getRepository('AppBundle:Client')
-            ->findAll();
-        $employees = $this->getDoctrine()
-            ->getRepository('AppBundle:Employee')
-            ->findAll();
-        $businesses = $this->getDoctrine()
-            ->getRepository('AppBundle:Business')
-            ->findAll();
-        $departments = $this->getDoctrine()
-            ->getRepository('AppBundle:Department')
-            ->findAll();
-        $bloans=0;
-        for($i=0;$i<sizeof($loans);$i++){
-            if($loans[$i]->getStatus()==0) $bloans++;
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $loans = $this->getDoctrine()
+                ->getRepository('AppBundle:Loan')
+                ->findAll();
+            $clients = $this->getDoctrine()
+                ->getRepository('AppBundle:Client')
+                ->findAll();
+            $employees = $this->getDoctrine()
+                ->getRepository('AppBundle:Employee')
+                ->findAll();
+            $businesses = $this->getDoctrine()
+                ->getRepository('AppBundle:Business')
+                ->findAll();
+            $departments = $this->getDoctrine()
+                ->getRepository('AppBundle:Department')
+                ->findAll();
+            $bloans=0;
+            for($i=0;$i<sizeof($loans);$i++){
+                if($loans[$i]->getStatus()==0) $bloans++;
+            }
+            $nloans=0;
+            for($i=0;$i<sizeof($loans);$i++){
+                if((time()-(60*60*24*7)) < $loans[$i]->getDataFillimit()->getTimestamp()){
+                    $nloans++;
+                }
+            }
+            $ditet= array('0','0','0','0','0','0','0');
+            $dje=0;
+            $sot=0;
+            for($i=0;$i<sizeof($loans);$i++){
+                if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-7 day') ){
+                    $ditet[$loans[$i]->getDataFillimit()->format('w')]++;
+                }
+                if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-2 day') && strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))< strtotime('-1 day') ){
+                    $dje++;
+                }
+                if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-1 day') ){
+                    $sot++;
+                }
+            }
+            if($dje!=0)$inc=(($sot-$dje)/$dje)*100;
+            else $inc=100;
+            $muajt= array('0','0','0','0','0','0','0','0','0','0','0','0');
+            for($i=0;$i<sizeof($loans);$i++){
+                if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-365 day') ){
+                    $muajt[$loans[$i]->getDataFillimit()->format('n')-1]++;
+                }
+            }
+            return $this->render('Admin/dashboard.html.twig',array(
+                'loans'=>$loans,
+                'bloans'=>$bloans,
+                'nloans'=>$nloans,
+                'clients'=>$clients,
+                'employees'=>$employees,
+                'businesses'=>$businesses,
+                'departments'=>$departments,
+                'ditet'=>$ditet,
+                'muajt'=>$muajt,
+                'inc'=>$inc
+            ));
+        }else{
+            return $this->redirectToRoute('ClientIndex');
         }
-        $nloans=0;
-        for($i=0;$i<sizeof($loans);$i++){
-            if((time()-(60*60*24*7)) < $loans[$i]->getDataFillimit()->getTimestamp()){
-                $nloans++;
-            }
-        }
-        $ditet= array('0','0','0','0','0','0','0');
-        $dje=0;
-        $sot=0;
-        for($i=0;$i<sizeof($loans);$i++){
-            if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-7 day') ){
-                $ditet[$loans[$i]->getDataFillimit()->format('w')]++;
-            }
-            if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-2 day') && strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))< strtotime('-1 day') ){
-                $dje++;
-            }
-            if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-1 day') ){
-                $sot++;
-            }
-        }
-        if($dje!=0)$inc=(($sot-$dje)/$dje)*100;
-        else $inc=100;
-        $muajt= array('0','0','0','0','0','0','0','0','0','0','0','0');
-        for($i=0;$i<sizeof($loans);$i++){
-            if(strtotime($loans[$i]->getDataFillimit()->format('Y-m-d H:i:s'))> strtotime('-365 day') ){
-                $muajt[$loans[$i]->getDataFillimit()->format('n')-1]++;
-            }
-        }
-        return $this->render('Admin/dashboard.html.twig',array(
-            'loans'=>$loans,
-            'bloans'=>$bloans,
-            'nloans'=>$nloans,
-            'clients'=>$clients,
-            'employees'=>$employees,
-            'businesses'=>$businesses,
-            'departments'=>$departments,
-            'ditet'=>$ditet,
-            'muajt'=>$muajt,
-            'inc'=>$inc
-        ));
+
     }
     /**
      * @Route("/manager", name="manager")
@@ -470,6 +476,59 @@ class UserController extends Controller
             'ditet'=>$ditet,
             'muajt'=>$muajt,
             'inc'=>$inc
+        ));
+    }
+    /**
+     * @Route("/signup", name="signup")
+     */
+    public function signup(Request $request)
+    {
+        $c = new Client();
+        $u1 = new Users();
+        $total1=array(
+            'user'=>$u1,
+            'client'=>$c
+        );
+        $form1= $this->createForm(MergedUC::class,$total1);
+        $form1->handleRequest($request);
+        if($form1->isSubmitted()&&$form1->isValid()){
+            $name=$form1['client']['name']->getData();
+            $surname=$form1['client']['surname']->getData();
+            $email=$form1['user']['email']->getData();
+            $username=$form1['user']['username']->getData();
+            $password=$form1['user']['plainPassword']->getData();
+            $type=1;
+            $bank=$form1['client']['bank']->getData();
+            $cardid=$form1['client']['cardid']->getData();
+            $salary=$form1['client']['salary']->getData();
+
+            $total1['client']->setName($name);
+            $total1['user']->setEmail($email);
+            $total1['user']->setUsername($username);
+            $total1['user']->setPassword(md5($password));
+            $total1['user']->setType($type);
+            $total1['client']->setSurname($surname);
+            $total1['client']->setBank($bank);
+            $total1['client']->setCardid($cardid);
+            $total1['client']->setSalary($salary);
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($total1['user']);
+            $em->flush();
+            $em->persist($total1['client']);
+            $em->flush();
+            return $this->redirectToRoute('ClientIndex');
+
+        }
+        $users = $this->getDoctrine()
+            ->getRepository('AppBundle:Users')
+            ->findAll();
+        $clients = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->findAll();
+        return $this->render('Client/signup.html.twig',array(
+            'form2'=>$form1->createView(),
+            'users'=>$users,
+            'clients'=>$clients,
         ));
     }
 }

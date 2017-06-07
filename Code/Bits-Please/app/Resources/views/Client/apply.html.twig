@@ -1,0 +1,320 @@
+
+
+<head>
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-weight: 300;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: white;
+            font-weight: 300;
+        }
+        body ::-webkit-input-placeholder {
+            /* WebKit browsers */
+            font-family: 'Source Sans Pro', sans-serif;
+            color: white;
+            font-weight: 300;
+        }
+        body :-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            font-family: 'Source Sans Pro', sans-serif;
+            color: white;
+            opacity: 1;
+            font-weight: 300;
+        }
+        body ::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            font-family: 'Source Sans Pro', sans-serif;
+            color: white;
+            opacity: 1;
+            font-weight: 300;
+        }
+        body :-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            font-family: 'Source Sans Pro', sans-serif;
+            color: white;
+            font-weight: 300;
+        }
+        .wrapper {
+            background: #e60000;
+            background: -webkit-linear-gradient(top left, #ff3333 0%, #e6005c 100%);
+            background: linear-gradient(to bottom right, #ff3333 0%, #e6005c 100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .wrapper.form-success .container h1 {
+            -webkit-transform: translateY(85px);
+            transform: translateY(85px);
+        }
+        .bg-bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .bg-bubbles li {
+            position: absolute;
+            list-style: none;
+            display: block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.15);
+            bottom: -160px;
+            -webkit-animation: square 25s infinite;
+            animation: square 25s infinite;
+            -webkit-transition-timing-function: linear;
+            transition-timing-function: linear;
+        }
+        .bg-bubbles li:nth-child(1) {
+            left: 10%;
+        }
+        .bg-bubbles li:nth-child(2) {
+            left: 20%;
+            width: 80px;
+            height: 80px;
+            -webkit-animation-delay: 2s;
+            animation-delay: 2s;
+            -webkit-animation-duration: 17s;
+            animation-duration: 17s;
+        }
+        .bg-bubbles li:nth-child(3) {
+            left: 25%;
+            -webkit-animation-delay: 4s;
+            animation-delay: 4s;
+        }
+        .bg-bubbles li:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            -webkit-animation-duration: 22s;
+            animation-duration: 22s;
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        .bg-bubbles li:nth-child(5) {
+            left: 70%;
+        }
+        .bg-bubbles li:nth-child(6) {
+            left: 80%;
+            width: 120px;
+            height: 120px;
+            -webkit-animation-delay: 3s;
+            animation-delay: 3s;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .bg-bubbles li:nth-child(7) {
+            left: 32%;
+            width: 160px;
+            height: 160px;
+            -webkit-animation-delay: 7s;
+            animation-delay: 7s;
+        }
+        .bg-bubbles li:nth-child(8) {
+            left: 55%;
+            width: 20px;
+            height: 20px;
+            -webkit-animation-delay: 15s;
+            animation-delay: 15s;
+            -webkit-animation-duration: 40s;
+            animation-duration: 40s;
+        }
+        .bg-bubbles li:nth-child(9) {
+            left: 25%;
+            width: 10px;
+            height: 10px;
+            -webkit-animation-delay: 2s;
+            animation-delay: 2s;
+            -webkit-animation-duration: 40s;
+            animation-duration: 40s;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .bg-bubbles li:nth-child(10) {
+            left: 90%;
+            width: 160px;
+            height: 160px;
+            -webkit-animation-delay: 11s;
+            animation-delay: 11s;
+        }
+        h3{
+            color: #FFFFFF;
+
+        }
+        .section-description{
+            color: #FFFFFF;
+        }
+        @-webkit-keyframes square {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            100% {
+                -webkit-transform: translateY(-700px) rotate(600deg);
+                transform: translateY(-700px) rotate(600deg);
+            }
+        }
+        @keyframes square {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            100% {
+                -webkit-transform: translateY(-700px) rotate(600deg);
+                transform: translateY(-700px) rotate(600deg);
+            }
+        }
+
+
+    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,400italic&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <script>
+
+        var newClient = {"interest":["17.0","17.0","17.0","17.0","17.0","17.0","17.0","17.0"],"min_amount":"10000","max_amount":"100000","max_amount_per_month":["100000"],"default_amount":"50000","amount_step":"500","min_period":"1","max_period":"8","default_period":"4","comm_fee":["9.0","13.0","17.0","20.0","21.0","27.0","28.5","30.0"],"guarantee_fee":"","guarantee_fee_start":""};
+        var returningClient = {"interest":["15.0","15.0","15.0","15.0","15.0","15.0","15.0","15.0","15.0","15.0","15.0","15.0","15.0","15.0"],"min_amount":"10000","max_amount":"200000","max_amount_per_month":["200000"],"default_amount":"100000","amount_step":"5000","min_period":"1","max_period":"14","default_period":"6","comm_fee":["9.0","11.0","15.0","18.0","20.0","21.0","22.0","23.0","25.0","26.0","28.0","30.0","31.0","32.0"],"guarantee_fee":"","guarantee_fee_start":""};
+
+    </script>
+    <link rel="stylesheet" id="oi-screen-css" href="http://www.iutecredit.al/wp-content/themes/iutecredit/assets/dist/css/styles_screen.min.css" type="text/css" media="screen">
+    <script type="text/javascript" src="http://www.iutecredit.al/wp-content/themes/iutecredit/assets/dist/scripts/vendors.min.js"></script>
+
+    <script type="text/javascript" src="http://www.iutecredit.al/wp-content/themes/iutecredit/assets/dist/scripts/custom.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<div class="wrapper">
+<section id="apply">
+    <div class="container wow fadeInUp">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="section-title">Apply for Loan</h3>
+                <div class="section-title-divider"></div>
+                <p class="section-description">Calculate Monthly Payments and apply for loan!</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calculator">
+                    <form role="form" id="calculator" method="post">
+                        <input type="hidden" id="client_type" name="clientType" value="new">
+                        <input type="hidden" id="loan_amount" name="loanAmount" value="50000">
+                        <input type="hidden" id="loan_period" name="loanPeriod" value="4">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-2 " style="height: 150px;">
+                                <div class="calculator__aside aside-left btn-group" id="clientSwitch" data-toggle="buttons" data-mh="calculator">
+                                    <label class="btn btn-calculator aside-section aside-section-sm active">
+                                        <input type="radio" name="clientType" id="newClient" value="new" autocomplete="off"> <span class="text-block">New <br>client </span>
+                                    </label>
+                                    <label class="btn btn-calculator aside-section aside-section-sm ">
+                                        <input type="radio" name="clientType" id="returningClient" value="existing" autocomplete="off"> <span class="text-block">Returning <br>client </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-7">
+                                <div class="calculator__main" data-mh="calculator">
+                                    <div class="slider__wrap">
+                                        <div class="slider" id="slider-summa">
+                                            <div class="slider__head">
+                                                <span class="slider-amount"><span class="num">50000</span> ALL</span>
+                                                <p class="slider-label">Loan amount</p>
+                                            </div>
+                                            <div class="slider__body">
+                                                <span class="slider-min amount"><span class="num">10 000</span> ALL</span>
+                                                <div class="slider-range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 44.4444%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 44.4444%;"></span></div>
+                                                <span class="slider-max amount"><span class="num">100 000</span> ALL</span>
+                                            </div>
+                                        </div>
+                                        <div class="slider" id="slider-period">
+                                            <div class="slider__head">
+                                                <span class="slider-amount"><span class="num">4</span> months</span>
+                                                <p class="slider-label">Loan period</p>
+                                            </div>
+                                            <div class="slider__body">
+                                                <span class="slider-min"><span class="num">1</span> month</span>
+                                                <div class="slider-range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 42.8571%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 42.8571%;"></span></div>
+                                                <span class="slider-max"><span class="num">8</span> months</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3" style="height: 150px;">
+                                <div class="calculator__aside aside-right" data-mh="calculator">
+                                    <div class="calculator__out aside-section text-white aside-section-sm" data-mh="aside" style="height: 153px;">
+                                        <div class="inner">
+                                            <p class="text-block">Monthly payment</p>
+                                            <p class="value text-block"><span class="num monthly-payment">15 535</span> ALL</p>
+                                            <a type="button" href="#loanDetails" data-toggle="modal" data-target="#loanDetails" class="underline">Loan details</a>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-block btn-next btn-primary aside-section aside-section-sm" data-mh="aside" style="height: 153px;" name="submit">
+                                             <span class="text-block">
+                                                    <span class="btn-text text-small">Loan in 30 minutes</span><span class="btn-text text-large">Apply now</span>
+                                             </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div class="row">
+
+    <div class="modal fade" id="loanDetails" tabindex="-1" role="dialog" aria-labelledby="loanDetailsLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-link close" data-dismiss="modal" aria-label="Close"></button>
+                    <h3 class="section-title text-primary" id="loanDetailsLabel">Loan details</h3>
+                </div>
+                <div class="modal-body">
+                    <table class="table-borderless table-condensed">
+                        <tbody>
+                        <tr>
+                            <th>Loan amount</th>
+                            <td class="text-right "><span class="loan-amount">50 000</span> ALL</td>
+                        </tr>
+                        <tr>
+                            <th>Loan period</th>
+                            <td class="text-right"><span class=" loan-period">4</span> months</td>
+                        </tr>
+                        <tr>
+                            <th>Monthly repayment</th>
+                            <td class="text-right"><span class="monthly-payment">15 535</span> ALL</td>
+                        </tr>
+                        <tr>
+                            <th>Loan commission fee</th>
+                            <td class="text-right"><span class="comm-fee">10 000</span>  ALL</td>
+                        </tr>
+                        <tr><th>Total loan cost</th>
+                            <td class="text-right"><span class="total-cost">62 140</span> ALL</td>
+                        </tr>
+                        <tr>
+                            <th>APR</th>
+                            <td class="text-right"><span class="apr">111.59</span>%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

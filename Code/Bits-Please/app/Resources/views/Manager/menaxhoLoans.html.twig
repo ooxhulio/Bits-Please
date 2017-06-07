@@ -183,6 +183,45 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="green">
+                        <h4 class="title">Requested Loans</h4>
+                        <p class="category">Manage Loans</p>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-primary">
+                            <th>Client ID</th>
+                            <th>Amount</th>
+                            <th>Interest</th>
+                            <th>Monthly Payment</th>
+                            <th>Maturity</th>
+                            <th>Data Fillimit</th>
+                            <th>Deadline</th>
+                            <th>Manage</th>
+                            </thead>
+                            <tbody>
+                            {% for x in aloans %}
+                                    <tr>
+                                        <td>null</td>
+                                        <td>{{ x.amount }}</td>
+                                        <td>{{ x.interest }}</td>
+                                        <td>{{ ((x.amount*1.2)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>
+                                        <td>{{ x.maturity }} Months</td>
+                                        <td>{{ x.dataFillimit|date('Y-m-d')  }}</td>
+                                        <td>{{ x.dataFillimit|date_modify("+"~ x.maturity ~" month")|date("Y-m-d") }}</td>
+                                        <td><a id="{{ x.id }}" name="approveit" class="btn btn-delete but3" href="{{ path('aLoan', {'id': x.id }) }}"><i class="material-icons">check_box</i></a>
+                                            <a id="{{ x.id }}" name="deleteit"  class="btn btn-default but3" href="{{ path('dLoan', {'id': x.id }) }}"><i class="material-icons">delete</i></a></td>
+                                    </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}

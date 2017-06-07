@@ -33,10 +33,7 @@ class UsersType extends AbstractType
                 'first_options'  => array('label' => 'Password:'),
                 'second_options' => array('label' => 'Confirm Password:'),
                 'empty_data'  => '',
-            ))
-            ->add('type',ChoiceType::class,array('label'=>'Type','attr'=>array('class'=> 'form-control'),'choices'=>array(
-                'Client'=>'1',
-            )));
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

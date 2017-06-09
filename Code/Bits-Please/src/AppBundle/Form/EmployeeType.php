@@ -11,9 +11,11 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Employee;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityManager;
 
 class EmployeeType extends AbstractType
 {
@@ -24,7 +26,13 @@ class EmployeeType extends AbstractType
             ->add('surname',TextType::class,array('label'=>'Surname','attr'=>array('class'=> 'form-control')))
             ->add('ssn',TextType::class,array('label'=>'SSN','attr'=>array('class'=> 'form-control')))
             ->add('position',TextType::class,array('label'=>'Position','attr'=>array('class'=> 'form-control')))
-            ->add('department',TextType::class,array('label'=>'Department','attr'=>array('class'=> 'form-control')))
+            ->add('department', ChoiceType::class, array('label' => 'Department', 'attr' => array('class' => 'form-control'), 'choices' => array(
+                "Marketing"=>"Marketing",
+                "Managment"=>"Managment",
+                "Loans"=>"Loans",
+                "Finance"=>"Finance",
+                "IT"=>"IT"
+            )))
             ->add('salary',TextType::class,array('label'=>'Salary','attr'=>array('class'=> 'form-control')))
         ;
     }

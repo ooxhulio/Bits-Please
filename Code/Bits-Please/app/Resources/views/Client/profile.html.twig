@@ -1,0 +1,442 @@
+<html>
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
+<link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<title>Iute Credit</title>
+
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<meta name="viewport" content="width=device-width" />
+
+<!-- Bootstrap core CSS     -->
+<link href="{{ asset("assets/css/bootstrap.min.css") }}" rel="stylesheet" />
+
+<!--  Material Dashboard CSS    -->
+<link href="{{ asset("assets/css/material-dashboard.css") }}" rel="stylesheet"/>
+
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="{{ asset('assets/css/demo.css') }}" rel="stylesheet" />
+
+<!--     Fonts and icons     -->
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+<style>
+    .logoi{
+        max-width: 200px;
+    }
+</style>
+{% if app.user.type == 0 %}
+    <div class="wrapper">
+        <div class="sidebar" data-color="red" data-image="{{ asset('assets/img/back.jpg') }}">
+            <!--
+                Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+                Tip 2: you can also add an image using data-image tag
+            -->
+
+            <div class="logo">
+                <a href="{{ path('manager') }}" class="simple-text">
+                    <img src="{{ asset("iutecredit-logo.svg") }}" class="logoi"/>
+                </a>
+            </div>
+
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li id="dash">
+                        <a href="{{ path('manager') }} ">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li id="users">
+                        <a href="{{ path('clients') }}">
+                            <i class="material-icons">person</i>
+                            <p>Manage Clients</p>
+                        </a>
+                    </li>
+                    <li id="buss">
+                        <a href="{{ path('mbusiness') }}">
+                            <i class="material-icons">store</i>
+                            <p>Manage Businesses</p>
+                        </a>
+                    </li>
+                    <li id="depts">
+                        <a href="{{ path('mdepartment') }}">
+                            <i class="material-icons">work</i>
+                            <p>Manage Departments</p>
+                        </a>
+                    </li>
+                    <li id="loan">
+                        <a href="{{ path('mloan') }}">
+                            <i class="material-icons">monetization_on</i>
+                            <p>Manage Loans</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="material-icons">inbox</i>
+                            <p>Messages</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}">
+                            <i class="material-icons">exit_to_app</i>
+                            <p>Log Out</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-transparent navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Mirë se vini, {{ app.user.username }}!</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="{{ path('admin') }}" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">dashboard</i>
+                                    <p class="hidden-lg hidden-md">Dashboard</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('profile', {'id': app.user.id}) }}" class="dropdown-toggle">
+                                    <i class="material-icons">person</i>
+                                    <p class="hidden-lg hidden-md">Profile</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        {#<form class="navbar-form navbar-right" role="search">#}
+                        {#<div class="form-group  is-empty">#}
+                        {#<input type="text" class="form-control" placeholder="Search">#}
+                        {#<span class="material-input"></span>#}
+                        {#</div>#}
+                        {#<button type="submit" class="btn btn-white btn-round btn-just-icon">#}
+                        {#<i class="material-icons">search</i><div class="ripple-container"></div>#}
+                        {#</button>#}
+                        {#</form>#}
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header" data-background-color="red">
+                                    <h4 class="title">Edit Profile</h4>
+                                    <p class="category">Complete your profile</p>
+                                </div>
+                                <div class="card-content">
+                                    {{ form_start(form) }}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">{{ form_label(form.employee.name) }}</label>
+                                                {{ form_widget(form.employee.name) }}
+                                                {{ form_errors(form.employee.name) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label"> {{ form_label(form.employee.surname) }}</label>
+                                                {{ form_widget(form.employee.surname) }}
+                                                {{ form_errors(form.employee.surname) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label"> {{ form_label(form.employee.salary) }}</label>
+                                                {{ form_widget(form.employee.salary) }}
+                                                {{ form_errors(form.employee.salary) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">{{ form_label(form.employee.ssn) }}</label>
+                                                {{ form_widget(form.employee.ssn) }}
+                                                {{ form_errors(form.employee.ssn) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label"> {{ form_label(form.employee.position) }}</label>
+                                                {{ form_widget(form.employee.position) }}
+                                                {{ form_errors(form.employee.position) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label"> {{ form_label(form.employee.department) }}</label>
+                                                {{ form_widget(form.employee.department) }}
+                                                {{ form_errors(form.employee.department) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">{{ form_label(form.user.email) }}</label>
+                                                {{ form_widget(form.user.email) }}
+                                                {{ form_errors(form.user.email) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label"> {{ form_label(form.user.username) }}</label>
+                                                {{ form_widget(form.user.username) }}
+                                                {{ form_errors(form.user.username) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">{{ form_label(form.user.plainPassword.first) }}</label>
+                                                {{ form_widget(form.user.plainPassword.first) }}
+                                                {{ form_errors(form.user.plainPassword.first) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">  {{ form_label(form.user.plainPassword.second) }}</label>
+                                                {{ form_widget(form.user.plainPassword.second) }}
+                                                {{ form_errors(form.user.plainPassword.second) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group label-floating col-md-12">
+                                            <button class="btn btn-default" href="{{ path('manager') }}">Go Back</button>
+                                            {{ form_widget(form.save) }}
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% elseif app.user.type ==1 %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Edit Profile</h4>
+                            <p class="category">Complete your profile</p>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start(form2) }}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.client.name) }}</label>
+                                        {{ form_widget(form2.client.name) }}
+                                        {{ form_errors(form2.client.name) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.client.surname) }}</label>
+                                        {{ form_widget(form2.client.surname) }}
+                                        {{ form_errors(form2.client.surname) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.client.salary) }}</label>
+                                        {{ form_widget(form2.client.salary) }}
+                                        {{ form_errors(form2.client.salary) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.client.bank) }}</label>
+                                        {{ form_widget(form2.client.bank) }}
+                                        {{ form_errors(form2.client.bank) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.client.cardid) }}</label>
+                                        {{ form_widget(form2.client.cardid) }}
+                                        {{ form_errors(form2.client.cardid) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.user.email) }}</label>
+                                        {{ form_widget(form2.user.email) }}
+                                        {{ form_errors(form2.user.email) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"> {{ form_label(form2.user.username) }}</label>
+                                        {{ form_widget(form2.user.username) }}
+                                        {{ form_errors(form2.user.username) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">{{ form_label(form2.user.plainPassword.first) }}</label>
+                                        {{ form_widget(form2.user.plainPassword.first) }}
+                                        {{ form_errors(form2.user.plainPassword.first) }}
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">  {{ form_label(form2.user.plainPassword.second) }}</label>
+                                        {{ form_widget(form2.user.plainPassword.second) }}
+                                        {{ form_errors(form2.user.plainPassword.second) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group label-floating col-md-12">
+                                    <button class="btn btn-default" href="{{ path('ClientIndex') }}">Go Back</button>
+                                    {{ form_widget(form2.save) }}
+                                </div>
+                            </div>
+                            {{ form_end(form2) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="purple">
+                            <h4 class="title">Loans</h4>
+                            <p class="category">Loans Information</p>
+                        </div>
+                        <div class="card-content">
+                            <table class="table">
+                                <thead class="text-primary">
+                                <th>Amount</th>
+                                <th>Interest</th>
+                                <th>Monthly Payment</th>
+                                <th>Maturity</th>
+                                <th>Data Fillimit</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                                </thead>
+                                <tbody>
+                                {% for x in loans %}
+                                    <tr>
+                                        <td>{{ x.amount }}</td>
+                                        <td>{{ x.interest }}</td>
+                                        <td>{{ ((x.amount)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>
+                                        <td>{{ x.maturity }} Months</td>
+                                        <td>{{ x.dataFillimit|date('Y-m-d')  }}</td>
+                                        <td>{{ x.dataFillimit|date_modify("+"~ x.maturity ~" day")|date("m/d/Y") }}</td>
+                                        {% if x.status == 1 %}
+                                            <td>Aktiv</td>
+                                        {% elseif x.status == 2 %}
+                                            <td>Me Vonese</td>
+                                        {% elseif x.status == 3 %}
+                                            <td>Kredi e keqe</td>
+                                        {% elseif x.status == 0 %}
+                                            <td>Mbaruar</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">Requested Loans</h4>
+                            <p class="category">Loan Info</p>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                <th>Amount</th>
+                                <th>Interest</th>
+                                <th>Monthly Payment</th>
+                                <th>Maturity</th>
+                                <th>Data Fillimit</th>
+                                <th>Deadline</th>
+                                </thead>
+                                <tbody>
+                                {% for x in aloans %}
+                                    <tr>
+                                        <td>{{ x.amount }}</td>
+                                        <td>{{ x.interest }}</td>
+                                        <td>{{ ((x.amount*1.2)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>
+                                        <td>{{ x.maturity }} Months</td>
+                                        <td>{{ x.dataFillimit|date('Y-m-d')  }}</td>
+                                        <td>{{ x.dataFillimit|date_modify("+"~ x.maturity ~" month")|date("Y-m-d") }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{{ asset('assets/js/jquery-3.1.0.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/material.min.js') }}" type="text/javascript"></script>
+
+<!--  Charts Plugin -->
+<script src="{{ asset('assets/js/chartist.min.js') }}"></script>
+
+<!--  Notifications Plugin    -->
+<script src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Material Dashboard javascript methods -->
+<script src="{{ asset('assets/js/material-dashboard.js') }}"></script>
+
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{{ asset('assets/js/demo.js?v=2') }}"></script>
+
+<!-- Bootbox plugin! -->
+<script src="{{ asset('assets/js/bootbox.min.js') }}"></script>
+</html>

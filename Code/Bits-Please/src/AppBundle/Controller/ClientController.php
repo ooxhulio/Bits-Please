@@ -24,7 +24,17 @@ class ClientController extends Controller
      */
     public function indexAction(Request $request)
     {
-
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+                return $this->redirectToRoute('admin');
+            }else if($user->getType()==0){
+                return $this->redirectToRoute('manager');
+            }else{
+                return $this->render('Client/index.html.twig');
+            }
+        }
         return $this->render('Client/index.html.twig');
     }
     /**
@@ -35,10 +45,14 @@ class ClientController extends Controller
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            if($user->hasRole('ROLE_SUPER_ADMIN')){
+                return $this->redirectToRoute('admin');
+            }else if($user->getType()==0){
+                return $this->redirectToRoute('manager');
+            }
             $c = $this->getDoctrine()
                 ->getRepository('AppBundle:Client')
-                ->findAll();
-            //TODO create email as foreign key
+                ->findBy(array('userId' => $user->getId()));
             $loan = new LoanApproval();
             if (isset($_REQUEST['submit'])) {
                 $amnt = $_POST['loanAmount'];
@@ -52,7 +66,7 @@ class ClientController extends Controller
 
                 $date = date("Y/m/d H:i");
                 $loan->setAmount($amnt);
-                $loan->setClientid($user);
+                $loan->setClientid($c[0]);
                 $loan->setInterest($int);
                 $loan->setMaturity($mat);
                 $loan->setDataFillimit(new \DateTime());
@@ -66,5 +80,6 @@ class ClientController extends Controller
         }else{
             return $this->redirectToRoute('ClientIndex');
         }
+
     }
 }

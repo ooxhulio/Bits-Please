@@ -82,8 +82,15 @@
                         </ul>
                     </li>
                     <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="">Log In</a></li>
-                    <li><a href="{{ path('signup') }}">Sign Up</a></li>
+                    {% if app.user %}
+                        <li><a href="{{ path('profile', {'id': app.user.id }) }}">Profile</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}">Log Out</a></li>
+                        {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}">Log In</a></li>
+                            {% endif %}
+                    {% if not app.user %}
+                         <li><a href="{{ path('signup') }}">Sign Up</a></li>
+                    {% endif %}
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>

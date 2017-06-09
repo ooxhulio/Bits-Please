@@ -205,7 +205,7 @@
                             <tbody>
                             {% for x in aloans %}
                                     <tr>
-                                        <td>null</td>
+                                        <td>{{ x.clientid.id }}</td>
                                         <td>{{ x.amount }}</td>
                                         <td>{{ x.interest }}</td>
                                         <td>{{ ((x.amount*1.2)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>

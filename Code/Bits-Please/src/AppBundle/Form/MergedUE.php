@@ -27,7 +27,7 @@ class MergedUE extends AbstractType
         ->add('employee', EmployeeType::class, array(
             'data_class' => Employee::class
         ))
-        ->add('save',SubmitType::class,array('label'=>'Add Employee','attr'=>array('class'=> 'btn btn-primary pull-right')))
+        ->add('save',SubmitType::class,array('label'=>'Submit','attr'=>array('class'=> 'btn btn-primary pull-right')))
 ;
 }
 }

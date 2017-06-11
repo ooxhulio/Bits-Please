@@ -356,7 +356,7 @@
                                     <tr>
                                         <td>{{ x.amount }}</td>
                                         <td>{{ x.interest }}</td>
-                                        <td>{{ ((x.amount)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>
+                                        <td>{{ ((x.amount*1.2)*(x.interest/1200)*(1+(x.interest/1200)) ** x.maturity)/(((1+(x.interest/1200)) ** x.maturity)-1) }}</td>
                                         <td>{{ x.maturity }} Months</td>
                                         <td>{{ x.dataFillimit|date('Y-m-d')  }}</td>
                                         <td>{{ x.dataFillimit|date_modify("+"~ x.maturity ~" day")|date("m/d/Y") }}</td>

@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <button class="calculate btn btn-default">Calculate Monthly Payment </button>
+                                        <a class="calculate btn btn-default">Calculate Monthly Payment </a>
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@
         });
         $(document).ready(function(){
             $(".calculate").click(function(){
-                var amount = $('.amount').val();
+                var amount = $('.amount').val()*1.2;
                 var int = $('.int').val()/1200;
                 var maturity = $('.maturity').val();
                 $(".monthly").val((amount*int*Math.pow((1+int),maturity))/(Math.pow((1+int),maturity)-1));

@@ -71,10 +71,10 @@ class UserController extends Controller
                     $total['employee']->setSalary($salary);
 
                     $em = $this->getDoctrine()->getManager();
-                    $em->persist($total['user']);
-                    $em->flush();
                     $total['employee']->setUserId($total['user']);
                     $em->persist($total['employee']);
+                    $em->persist($total['user']);
+                    $em->flush();
                     $em->flush();
                     return $this->redirectToRoute('users');
 
@@ -88,31 +88,34 @@ class UserController extends Controller
                 $form1 = $this->createForm(MergedUC::class, $total1);
                 $form1->handleRequest($request);
                 if ($form1->isSubmitted() && $form1->isValid()) {
-                    $name = $form1['client']['name']->getData();
-                    $surname = $form1['client']['surname']->getData();
-                    $email = $form1['user']['email']->getData();
-                    $username = $form1['user']['username']->getData();
-                    $password = $form1['user']['plainPassword']->getData();
-                    $type = 1;
-                    $bank = $form1['client']['bank']->getData();
-                    $cardid = $form1['client']['cardid']->getData();
-                    $salary = $form1['client']['salary']->getData();
+                    $name=$form1['client']['name']->getData();
+                    $surname=$form1['client']['surname']->getData();
+                    $email=$form1['user']['email']->getData();
+                    $username=$form1['user']['username']->getData();
+                    $password=$form1['user']['plainPassword']->getData();
+                    $type=1;
+                    $bank=$form1['client']['bank']->getData();
+                    $cardid=$form1['client']['cardid']->getData();
+                    $salary=$form1['client']['salary']->getData();
+
 
                     $total1['client']->setName($name);
                     $total1['user']->setEmail($email);
                     $total1['user']->setUsername($username);
                     $total1['user']->setPlainPassword($password);
                     $total1['user']->setType($type);
+                    $total1['user']->setEnabled(true);
                     $total1['client']->setSurname($surname);
                     $total1['client']->setBank($bank);
                     $total1['client']->setCardid($cardid);
                     $total1['client']->setSalary($salary);
-                    $em = $this->getDoctrine()->getManager();
+                    $total1['client']->setUserId($total1['user']);
+                    $em=$this->getDoctrine()->getManager();
                     $em->persist($total1['user']);
                     $em->flush();
-                    $total['client']->setUserId($total['user']);
                     $em->persist($total1['client']);
                     $em->flush();
+
                     return $this->redirectToRoute('users');
 
                 }
@@ -186,6 +189,7 @@ class UserController extends Controller
                 $total1['client']->setBank($bank);
                 $total1['client']->setCardid($cardid);
                 $total1['client']->setSalary($salary);
+                $total1['client']->setUserId($total1['user']);
                 $em=$this->getDoctrine()->getManager();
                 $em->persist($total1['user']);
                 $em->flush();
@@ -616,6 +620,7 @@ class UserController extends Controller
                 $total1['client']->setBank($bank);
                 $total1['client']->setCardid($cardid);
                 $total1['client']->setSalary($salary);
+                $total1['client']->setUserId($total1['user']);
                 $em=$this->getDoctrine()->getManager();
                 $em->persist($total1['user']);
                 $em->flush();

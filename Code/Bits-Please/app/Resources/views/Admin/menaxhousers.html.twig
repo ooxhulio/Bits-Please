@@ -1,4 +1,13 @@
 {% extends 'Admin/base.html.twig' %}
+{% block css %}
+    <style>
+        .table2{
+            display: block;
+            height: 500px;
+            overflow-y: scroll;
+        }
+    </style>
+{% endblock %}
 {% block info %}
     <div class="content">
         <div class="container-fluid">
@@ -107,7 +116,7 @@
                                 <p class="category">Manage Users</p>
                             </div>
                             <div class="card-content table-responsive">
-                                <table class="table">
+                                <table class="table" id="Tusers">
                                     <thead class="text-primary">
                                     <th>Username</th>
                                     <th>Email</th>
@@ -229,7 +238,7 @@
                             <p class="category">Manage Employees</p>
                         </div>
                         <div class="card-content table-responsive">
-                            <table class="table">
+                            <table class="table" id="Temp">
                                 <thead class="text-primary">
                                 <th>Name</th>
                                 <th>SSN</th>
@@ -262,7 +271,7 @@
                         </div>
                         <div class="card-content table-responsive">
                             <table class="table">
-                                <thead class="text-primary">
+                                <thead class="text-primary" id="Tclients">
                                 <th>Name</th>
                                 <th>Card ID</th>
                                 <th>Edit</th>
@@ -362,6 +371,18 @@
     <script>
         $(document).ready(function(){
             $("#users").addClass("active");
+        });
+        $(document).ready(function(){
+            if ($('#Tusers').height() > 600) {
+                $('#Tusers').addClass('table2');
+            }
+            if ($('#Temp').height() > 600) {
+                $('#Temp').addClass('table2');
+            }
+            if ($('#Tclients').height() > 600) {
+                $('#Tclients').addClass('table2');
+            }
+
         });
         $(document).ready(function(){
             $(".but1").on('click',function () {
